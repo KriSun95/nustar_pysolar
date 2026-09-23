@@ -98,9 +98,12 @@ def download_tle(outdir='./'):
     if (os.path.isfile(outfile)):
         os.remove(outfile)
     
-    
-    wget.download(url, out=outfile)
-    
+    import urllib.request
+
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('User-Agent', 'MyApp/1.0')] # define a random user agent
+    urllib.request.install_opener(opener)
+    urllib.request.urlretrieve(url, outfile)
     
     return outfile
 
